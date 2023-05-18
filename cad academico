@@ -1,0 +1,265 @@
+package cadastroacademico;
+
+import java.util.ArrayList;
+import java.util.Scanner;
+
+public class CadastroAcademico {
+    
+    public static void main(String[] args) {
+        Scanner ler = new Scanner (System.in);
+        
+        ArrayList<Aluno> turma = new ArrayList();
+        ArrayList<Professor> profs = new ArrayList();
+        String nome, endereco, telefone, cpf;
+        String nomeCurso, numMat, departamento;
+        double salario = 0;
+        int menu;
+        do{
+            System.out.println();
+            System.out.println("ESCOLHA UMA OPÇÃO:");
+            System.out.println("1. Cadastrar Aluno");
+            System.out.println("2. Cadastrar Professor");
+            System.out.println("3. Listar Alunos");
+            System.out.println("4. Listar Professor");
+            System.out.println("5. Sair");
+            menu = ler.nextInt();
+            switch(menu){
+                case 1:
+                    Aluno alu1 = new Aluno(nome, endereco, cpf, telefone, getNomeCurso, getNumMat);
+                    alu1.Exibir();
+                    turma.add(alu1);
+                    
+                break;
+                case 2:
+                    Professor prof = new Professor(nome, endereco, cpf, telefone, nomeCurso, departamento, salario);
+                    prof.Exibir();
+                    profs.add(prof);
+                    
+                break;
+                case 3:
+                    if(turma.isEmpty())
+                        System.out.println("Não existem alunos cadastrados");
+                    else{
+                        for(Aluno alu:turma){
+                            alu.Exibir();
+                        }
+                    }         
+                break;
+                
+                case 4:
+                    for(int x=0; x<2; x++)
+                        System.out.println("==> " + turma.toString());
+                break;
+                
+                case 5: 
+                    System.out.println("SAIR");
+                break;
+                
+                default: System.out.println("Opção invalida!");
+            }   
+        }while(menu!=5);
+    }
+    
+}
+///////////////////////////////////////////////////
+package cadastroacademico;
+
+import java.util.Scanner;
+
+public class Pessoa {
+    private String nome;
+    private String endereco;
+    private String telefone;
+    private String cpf;
+    
+    public Pessoa(String setNome, String setEndereco, String setTelefone, String setCpf){
+        setNome = nome;
+        setEndereco = endereco;
+        setTelefone = telefone;
+        setCpf = cpf;
+    }
+    public Pessoa(){
+        this.nome ="";
+        this.endereco = "";
+        this.telefone = "";
+        this.cpf = "";
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public String getEndereco() {
+        return endereco;
+    }
+
+    public void setEndereco(String endereco) {
+        this.endereco = endereco;
+    }
+
+    public String getTelefone() {
+        return telefone;
+    }
+
+    public void setTelefone(String telefone) {
+        this.telefone = telefone;
+    }
+
+    public String getCpf() {
+        return cpf;
+    }
+
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
+    }
+    
+    public void cadastrar(){
+        Scanner ler = new Scanner(System.in);
+        System.out.println("CADASTRAR ");
+        System.out.println("Informe o nome: ");
+        this.nome = ler.nextLine();
+        System.out.println("Endereço: ");
+        this.endereco = ler.nextLine();
+        System.out.println("Telefone: ");
+        this.telefone = ler.nextLine();
+        System.out.println("CPF: ");
+        this.cpf = ler.nextLine();
+        
+    }
+    
+    public void exibir(){
+        System.out.println();
+        System.out.println("-------------|INFORMAÇÕES GERAIS|-------------");
+        System.out.println("Nome do Aluno: " + this.getNome());
+        System.out.println("Endereço: " + this.getEndereco());
+        System.out.println("Telefone: " + this.getTelefone());
+        System.out.println("CPF: " + this.getCpf());
+    }
+}
+///////////////////////////////////////
+package cadastroacademico;
+import java.util.Scanner;
+public class Aluno extends Pessoa{
+    private String nomeCurso;
+    private String numMat;
+    Scanner ler = new Scanner(System.in);
+    
+    
+    public Aluno (String nome, String endereco, String cpf, String telefone, String setNomeCurso, String setNumMat){
+        super(nome, cpf, endereco, telefone);
+        setNomeCurso = nomeCurso;
+        setNumMat = numMat;
+    }
+
+    public String getNomeCurso() {
+        return nomeCurso;
+    }
+
+    public void setNomeCurso(String nomeCurso) {
+        this.nomeCurso = nomeCurso;
+    }
+
+    public String getNumMat() {
+        return numMat;
+    }
+
+    public void setNumMat(String numMat) {
+        this.numMat = numMat;
+    }
+    
+    public void Cadastrar (){
+        System.out.println("CADASTRAR ALUNO");
+            super.cadastrar();
+            System.out.println("Nome Curso: ");
+            String ncurso = ler.nextLine();
+            System.out.println("N° Matricula: ");
+            String numMat = ler.nextLine();
+    }
+    
+    public void Exibir(){
+        System.out.println();
+        System.out.println("-------------|DADOS DO ALUNO|-------------");
+        System.out.println("Nome do Aluno: " + this.getNome());
+        System.out.println("Endereço: " + this.getEndereco());
+        System.out.println("Telefone: " + this.getTelefone());
+        System.out.println("CPF: " + this.getCpf());
+        System.out.println("");
+        System.out.println("Nome do curso: " + this.getNomeCurso());
+        System.out.println("N° de matricula: " + this.getNumMat());
+    }
+}
+////////////////////////////////////////////
+package cadastroacademico;
+
+import java.util.Scanner;
+
+public class Professor extends Pessoa{
+    private String departamento;
+    private String nomeCurso;
+    private double salario;
+    Scanner ler = new Scanner(System.in);
+    
+    public Professor (String nome, String endereco, String telefone, String cpf, String nomeCurso, String departamento, double salario){
+        super(nome, endereco, cpf, telefone);
+        this.nomeCurso = nomeCurso;
+        this.departamento = departamento;
+        this.salario = salario;
+    }
+
+    public String getDepartamento() {
+        return departamento;
+    }
+
+    public void setDepartamento(String departamento) {
+        this.departamento = departamento;
+    }
+
+    public String getNomeCurso() {
+        return nomeCurso;
+    }
+
+    public void setNomeCurso(String nomeCurso) {
+        this.nomeCurso = nomeCurso;
+    }
+
+    public void setSalario(double salario) {
+        this.salario = salario;
+    }
+
+    public double getSalario() {
+        return salario;
+    }
+    
+    public void Cadastrar(){
+        super.cadastrar();
+        System.out.println("Nome Curso: ");
+        nomeCurso = ler.nextLine();
+        System.out.println("Departamento: ");
+        departamento = ler.nextLine();
+        System.out.println("Salario: ");
+        salario = ler.nextDouble();
+    }
+    
+    
+    
+     public void Exibir(){
+        System.out.println();
+        System.out.println("-------------|DADOS DO PROFESSOR|-------------");
+        System.out.println("Nome do Aluno: " + this.getNome());
+        System.out.println("Endereço: " + this.getEndereco());
+        System.out.println("Telefone: " + this.getTelefone());
+        System.out.println("CPF: " + this.getCpf());
+        System.out.println("");
+        System.out.println("Nome do curso: " + this.getNomeCurso());
+        System.out.println("Departamento: " + this.getDepartamento());
+        System.out.println("Salario: " + this.getSalario());
+    }
+    
+    
+    
+}
+
